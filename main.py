@@ -2,13 +2,11 @@
 
 from fpdf import FPDF 
 import pandas as pd
+from data_preprocessing import ExcelReader
 
 def main():
     # xlsx to dataframe 
-    xlsx_file = pd.ExcelFile('data.xlsx')
-    df = pd.read_excel(xlsx_file)
-    columns = df.columns
-    
+    df = ExcelReader('data.xlsx').get_df()
    # pdf generation : here its a blank page
     pdf = FPDF(orientation = 'P', unit = 'mm', format = 'A4')
     pdf.set_font('Arial','', 10)
