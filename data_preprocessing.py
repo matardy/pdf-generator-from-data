@@ -17,11 +17,3 @@ class ExcelReader:
    
         
 
-
-if __name__ == '__main__':
-    foo = ExcelReader('data.xlsx')
-    df  = foo.get_df()
-    print(df)
-
-# def xlsx_to_df(file_name:str)-> DataFrame:
-#     xlsx_file = pd.ExcelFile(file_name)

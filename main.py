@@ -1,7 +1,6 @@
 # Documentation here: https://pyfpdf.readthedocs.io/en/latest/ReferenceManual/index.html
 
 from fpdf import FPDF 
-import pandas as pd
 from data_preprocessing import ExcelReader
 
 def main():
