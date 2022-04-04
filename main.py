@@ -1,7 +1,9 @@
 # Documentation here: https://pyfpdf.readthedocs.io/en/latest/ReferenceManual/index.html
 
-from data_preprocessing import ExcelReader
-from PDFGenerator import PDFGenerator
+from classes.data_preprocessing import ExcelReader
+from classes.PDFGenerator import PDFGenerator
+
+
 def main():
 
 
