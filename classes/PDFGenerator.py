@@ -1,6 +1,6 @@
 from pandas import DataFrame
 from fpdf import FPDF 
-from data_preprocessing import ExcelReader
+from classes.data_preprocessing import ExcelReader
 
 class PDFGenerator(FPDF): 
     # TODO: Documentar el codigo.
