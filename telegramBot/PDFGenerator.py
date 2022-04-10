@@ -1,6 +1,7 @@
+import pandas as pd
 from pandas import DataFrame
 from fpdf import FPDF 
-from classes.data_preprocessing import ExcelReader
+from data_preprocessing import ExcelReader
 
 class PDFGenerator(FPDF): 
     # TODO: Documentar el codigo.
@@ -16,7 +17,7 @@ class PDFGenerator(FPDF):
         
 
 
-    def create_template(self, city, email, telf, emb, matr,sample_date,test):
+    def create_template(self, city, email, telf, emb,sample_date,test):
         
         self.set_font('Arial', 'B', 10)
        
@@ -55,8 +56,8 @@ class PDFGenerator(FPDF):
 
 
 
-        self.text(self.relative_position_x+95, self.relative_position_y+30, "MATRÍCULA: ")
-        self.text(self.relative_position_x+119, self.relative_position_y+30, matr)
+        # self.text(self.relative_position_x+95, self.relative_position_y+30, "MATRÍCULA: ")
+        # self.text(self.relative_position_x+119, self.relative_position_y+30, matr)
 
 
         self.text(self.relative_position_x+95, self.relative_position_y+36, "CÉDULA: ")
@@ -80,19 +81,18 @@ class PDFGenerator(FPDF):
 
 
 
-    def populate_pdf(self, data:DataFrame,city, email, telf, emb, matr,sample_date,test):
-        df = ExcelReader('data.xlsx').get_df()
-        
+    def populate_pdf(self, df,city, email, telf, emb,sample_date,test):
+        df = df.get_df()
         for name, last_name, identification , date_birth, status in zip(df['Nombre'], df['Apellido'], df['Cedula'], df['Nacimiento'], df['Estado']):
         # data tokenize
             full_name = name + " " + last_name
             ID = str(identification)
-            birth = date_birth.strftime("%m/%d/%Y") 
+            birth = str(date_birth)
             st = str(status)
             
             # populate pdf 
             self.add_page()
-            self.create_template(city, email, telf, emb, matr,sample_date,test)
+            self.create_template(city, email, telf, emb,sample_date,test)
            
             self.set_text_color(0,0,0)
             self.set_font('Arial','', 10)

@@ -1,19 +1,21 @@
 # Documentation here: https://pyfpdf.readthedocs.io/en/latest/ReferenceManual/index.html
 
-from classes.data_preprocessing import ExcelReader
-from classes.PDFGenerator import PDFGenerator
+from  telegramBot.telegramBotHandler import city
+
 
 
 def main():
 
-
-    df = ExcelReader('data.xlsx')
+    print(city)
+    file_name = str(os.popen('ls | grep .xlsx').read())
+    file_name = file_name.rstrip('\n')
+    df = ExcelReader(str(file_name))
     pdf = PDFGenerator()
     pdf.populate_pdf(df,'Manta', 'info@biselmed.com', '0987868186', 'SOFIA R', 'P-04-00616', '05/06/2021', 'Prueba Rápida Covid-19')
-    pdf.output('Certificates.pdf', 'F')
+    print("Generating pdf..")
+    pdf.output('/Users/gutembergmendoza/Stev/Python/PDF_generator/telegramBot/Certificates.pdf', 'F')
 
-        
-
+    
 
     
 
