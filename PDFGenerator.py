@@ -16,7 +16,7 @@ class PDFGenerator(FPDF):
     def footer(self):
         self.image('bisel/img/footer.jpeg',5,220,200)
         
-
+    
     
     def create_template_embarcacion(self, city:str, email:str, telf:str, emb:str, matr:str,sample_date:str,test:str):
         
@@ -34,7 +34,7 @@ class PDFGenerator(FPDF):
             # populate pdf 
             self.add_page()
             # TODO: Create a boolean variable to allow user to select which template wants to use.
-        # self.create_template_embarcacion(city, email, telf, emb, matr, sample_date, test)
+            # self.create_template_embarcacion(city, email, telf, emb, matr, sample_date, test)
         
             self.set_text_color(0,0,0)
             self.set_font('Arial','', 10)
