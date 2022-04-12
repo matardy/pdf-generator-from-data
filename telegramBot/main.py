@@ -15,17 +15,19 @@ from telegram.ext import (
 )
 import os
 import pandas as pd
-from data_preprocessing import ExcelReader
+from ExcelReader import ExcelReader
 from PDFGenerator import PDFGenerator
+from private_token import TOKEN
 import os 
 
 
-updater = Updater('5263400184:AAHhLANzxoE7thVGtMWOe9ufW6hruGsQnmU', use_context=True)
+updater = Updater(TOKEN, use_context=True)
 dispatcher = updater.dispatcher
 # Global variables
+
 CITY , EMB, MTR , DATE, ANALISIS, MATRIX = range(6)
 
-city = '' 
+
 
 
 
@@ -104,16 +106,18 @@ def matriz(update:Update, context: CallbackContext):
     context.bot.get_file(update.message.document).download()
 
     file_name = str(os.popen('ls | grep .xlsx').read())
+
     file_name = file_name.rstrip('\n')
-    df = ExcelReader(str(file_name))
+
+    df = ExcelReader(str(file_name)).get_df()
     pdf = PDFGenerator()
-    pdf.populate_pdf(df,context.user_data.get('city'), 'info@biselmed.com', '0958925173',context.user_data.get('emb'), context.user_data.get('date'), context.user_data.get('analisis'))
+    pdf.set_df(df)
+    pdf.create_template_embarcacion(context.user_data.get('city'),'info@biselmed.com', '0958925173',context.user_data.get('emb'), context.user_data.get('mtr'), context.user_data.get('date'), context.user_data.get('analisis') )
     
     pdf.output('/Users/gutembergmendoza/Stev/Python/PDF_generator/telegramBot/Certificates.pdf', 'F')
     update.message.reply_text('Certificados generados con exito! \n'
     'Para descargarlos presiona aqui: \n'
     '/descargar')
-    #os.system("python3 main.py")
     return ConversationHandler.END
 
 
@@ -183,12 +187,10 @@ def main():
 
     #updater.dispatcher.add_handler(MessageHandler(Filters.document, downloader))
     #updater.dispatcher.add_handler(CommandHandler('certificates', certificates))
-    print(city)
+    
     updater.start_polling()
     updater.idle()
-    print(city)
-def trying(): 
-    print(city)
+
 
 if __name__ == '__main__':
     main() 
